@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Drag and drop</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+
+
+<script>
+        function drag(event) {
+            //console.log(ev.target.id);
+            event.dataTransfer.setData("text", event.target.id);
+        };
+
+      function drop(event) {
+            //console.log(ev.target.id);
+            event.preventDefault();
+            var widgetName2 = event.dataTransfer.getData("text");
+
+            console.log(widgetName2);
+            event.target.appendChild(document.getElementById(widgetName2));
+
+/*            var divIdDestination = ev.target.id;
+            if (!$("#" + divIdDestination).hasClass("dragged")) {
+                var widgetName = ev.dataTransfer.getData("text");
+                $("#" + divIdDestination).addClass("dragged").removeClass("dropWidget");
+                $("#" + divIdDestination).html($("#" + divIdDestination).html().replace("drop here", widgetName.split('_')[1]));
+                $("#" + divIdDestination + " .removeWidget").removeClass("hide");
+                //window.location.href = 'Url.Action("Widget", "Home")?dest=' + divIdDestination + "&widgetname=" + widgetName.split('_')[1];
+            }*/
+        };        
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            var idDest = ev.target.id;
+            console.log(ev.target.id);
+            // if (!$("#" + idDest).hasClass("dragged")) {
+            //     $("#" + idDest).addClass("dropWidget");
+            // }
+        };
+
+
+        function removeDrop(event) {
+            console.log(event);
+            console.log(event.target.id);
+            event.preventDefault();
+            var idDest = event.target.id;
+            //console.log($(this).attr("id"));
+            //$('#' + idDest).removeClass("dropWidget");
+        };
+
+
+
+
+</script>
+
+
+</head>
+<body style="margin:10px">
+
+<div class="alert alert-primary" id="1" draggable="true" ondragstart="drag(event)">test1</div>
+<div class="alert alert-primary" id="2" draggable="true" ondragstart="drag(event)">test2</div>
+<div class="alert alert-primary" id="3" draggable="true" ondragstart="drag(event)">test3</div>
+
+
+</br>
+</br>
+<div style="border:1px solid red; height:50px" ondrop="drop(event)" ondragover="allowDrop(event)" id="dragtarget" ondragleave="removeDrop(event)">    
+</div>
+</body>
+</html>
